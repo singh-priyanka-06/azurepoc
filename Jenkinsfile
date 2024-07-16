@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('priyanka-docker')
-        AZURE_CREDENTIALS = credentials('azure-service-principal')
+        /* AZURE_CREDENTIALS = credentials('azure-service-principal') */
         GITHUB_CREDENTIALS = credentials('priyanka-git')
         RESOURCE_GROUP = 'ABCResourceGroup'
         AKS_CLUSTER = 'ABCCluster'
@@ -40,6 +40,27 @@ pipeline {
         }
 
 
+
+        stage('Deploy with Terraform') {
+            steps {
+                withCredentials([
+                    usernamePassword(credentialsId: 'azure-client-id', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID'),
+                    string(credentialsId: 'azure-tenant-id', variable: 'AZURE_TENANT_ID'),
+                    string(credentialsId: 'azure-subscription-id', variable: 'AZURE_SUBSCRIPTION_ID')
+                ]) {
+                    sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
+                    sh 'az account set --subscription $AZURE_SUBSCRIPTION_ID'
+
+                    dir('terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                }
+            }
+        }
+
+
+        /*
         stage('Deploy with Terraform') {
             steps {
                 withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_CREDENTIALS')]) {
@@ -54,7 +75,7 @@ pipeline {
             }
         }
 
-       /*
+       
         stage('Deploy with Terraform') {
             steps {
                 withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_CREDENTIALS')]) {
