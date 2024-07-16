@@ -14,14 +14,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'github', url: 'https://github.com/singh-priyanka-06/azurepoc.git'
+                git credentialsId: 'priyanka-git', url: 'https://github.com/singh-priyanka-06/azurepoc.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'priyanka-docker') {
                         def app = docker.build("${DOCKER_REPO}:${IMAGE_TAG}")
                         app.push()
                     }
