@@ -14,8 +14,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'priyanka-git', url: 'https://github.com/singh-priyanka-06/azurepoc.git'
+                git credentialsId: 'priyanka-git', branch: 'develop', url: 'https://github.com/singh-priyanka-06/azurepoc.git'
             }
+         
+            
         }
 
         stage('Build Docker Image') {
