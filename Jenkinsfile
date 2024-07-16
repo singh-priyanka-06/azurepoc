@@ -39,6 +39,21 @@ pipeline {
             }
         }
 
+
+        stage('Deploy with Terraform') {
+            steps {
+                withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_CREDENTIALS')]) {
+                    sh 'az login --service-principal -u ${AZURE_CREDENTIALS_USR} -p ${AZURE_CREDENTIALS_PSW} --tenant ${AZURE_CREDENTIALS_TEN}'
+                    sh 'az account set --subscription ${AZURE_CREDENTIALS_ID}'
+
+                    dir('terraform') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                }
+            }
+        }
+
        /*
         stage('Deploy with Terraform') {
             steps {
@@ -54,7 +69,7 @@ pipeline {
             }
         }
 
-        */
+        
 
 
 
@@ -79,7 +94,7 @@ stage('Deploy with Terraform') {
             }
         }
         
-
+*/
         stage('Deploy with Helm') {
             steps {
                 script {
