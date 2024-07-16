@@ -3,12 +3,14 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('priyanka-docker')
-        AZURE_SERVICE_PRINCIPAL = credentials('azure-service-principal')
+        AZURE_CREDENTIALS = credentials('azure-service-principal')
         GITHUB_CREDENTIALS = credentials('priyanka-git')
         RESOURCE_GROUP = 'ABCResourceGroup'
         AKS_CLUSTER = 'ABCCluster'
         DOCKER_REPO = 'priyankasingh06/hello-world'
         IMAGE_TAG = "v1"
+
+         
     }
 
     stages {
