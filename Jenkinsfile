@@ -37,6 +37,7 @@ pipeline {
             }
         }
 
+       /*
         stage('Deploy with Terraform') {
             steps {
                 withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_CREDENTIALS')]) {
@@ -50,6 +51,32 @@ pipeline {
                 }
             }
         }
+
+        */
+
+
+
+stage('Deploy with Terraform') {
+            steps {
+                script {
+                    def sp = readJSON text: AZURE_CREDENTIALS
+                    withCredentials([
+                        string(credentialsId: 'azure-client-id', variable: 'CLIENT_ID'),
+                        string(credentialsId: 'azure-client-secret', variable: 'CLIENT_SECRET'),
+                        string(credentialsId: 'azure-tenant-id', variable: 'TENANT_ID')
+                    ]) {
+                        sh 'az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID'
+                        sh 'az account set --subscription $sp.subscriptionId'
+
+                        dir('terraform') {
+                            sh 'terraform init'
+                            sh 'terraform apply -auto-approve'
+                        }
+                    }
+                }
+            }
+        }
+        
 
         stage('Deploy with Helm') {
             steps {
