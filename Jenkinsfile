@@ -24,8 +24,11 @@ pipeline {
             steps {
                 script {
 
+
+                 
+                    
                     echo "Logging into DockerHub"
-                    sh ' sudo docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+                    sh ' docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
                     docker.withRegistry('https://index.docker.io/v1/', 'priyanka-docker') {
                         def app = docker.build("${DOCKER_REPO}:${IMAGE_TAG}")
                         app.push()
