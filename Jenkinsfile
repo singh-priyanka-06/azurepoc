@@ -30,7 +30,7 @@ pipeline {
                     echo "Logging into DockerHub"
                     sh ' docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
                     docker.withRegistry('https://index.docker.io/v1/', 'priyanka-docker') {
-                        def app = docker.build("${DOCKER_REPO}:${IMAGE_TAG}")
+                        def app = docker.build("${DOCKER_REPO}:${IMAGE_TAG}", "--file app/Dockerfile .")
                         app.push()
                     }
                 }
