@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "ABCResourceGroup"
+  name     = "ABCResourceGroupCentral"
   location = "Central US"
 }
 
