@@ -6,7 +6,7 @@ pipeline {
         /* AZURE_CREDENTIALS = credentials('azure-service-principal') */
         GITHUB_CREDENTIALS = credentials('priyanka-git')
         RESOURCE_GROUP = 'ABCResourceGroupWest'
-        AKS_CLUSTER = 'ABCClusterWest'
+        AKS_CLUSTER = 'ABCClusterWest1'
         DOCKER_REPO = 'priyankasingh06/hello-world'
         IMAGE_TAG = "v1"
 
