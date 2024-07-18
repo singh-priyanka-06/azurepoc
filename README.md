@@ -58,46 +58,46 @@ Step 2: Application Setup
 
 Step 3: CI/CD Pipeline Setup
 
-1.1: Jenkins Installation
+1.1: Jenkins Installation: 
 1. Update the System
      sudo apt update
      sudo apt upgrade -y
 
-2. Install Java
+2. Install Java: 
     sudo apt install openjdk-11-jdk -y
    
-3. Add Jenkins Repository
+3. Add Jenkins Repository: 
      curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
     /usr/share/keyrings/jenkins-keyring.asc > /dev/null
     echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
     https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
     /etc/apt/sources.list.d/jenkins.list > /dev/null
 
-4. Install Jenkins
+4. Install Jenkins: 
      sudo apt update
      sudo apt install jenkins -y
 
-5. Start and Enable Jenkins
+5. Start and Enable Jenkins: 
      sudo systemctl start jenkins
      sudo systemctl enable jenkins
 
-6. Adjust Firewall
+6. Adjust Firewall: 
       sudo ufw allow 8080
       sudo ufw status
 
-7. Access Jenkins
+7. Access Jenkins: 
       Open your web browser and go to http://your_server_ip_or_domain:8080
     
-8. Unlock Jenkins
+8. Unlock Jenkins: 
       sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
-9. Install Suggested Plugins
+9. Install Suggested Plugins: 
       On the "Customize Jenkins" page, select "Install suggested plugins".
    
-10. Create First Admin User
+10. Create First Admin User: 
       Fill in the required information and click "Save and Finish".
     
-11. Jenkins is Ready
+11. Jenkins is Ready: 
       Click "Start using Jenkins".
 
 1.2 Configure Jenkins Credentials
@@ -136,13 +136,13 @@ Step 3: CI/CD Pipeline Setup
            Under Build Triggers, check GitHub hook trigger for GITScm polling.
 
 Step 4: Access Application
-1. Get the external IP of your Load Balancer service.
+1. Get the external IP of your Load Balancer service:
        kubectl get service hello-world -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
-2. Update /etc/hosts file with the above address.
+2. Update /etc/hosts file with the above address: 
        <IP_ADDRESS> hello-world.local
 
-3. Access your application URL.
+3. Access your application URL:
        e.g. http://hello-world.local
 
 
