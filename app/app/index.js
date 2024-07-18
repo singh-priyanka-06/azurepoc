@@ -29,21 +29,22 @@ pool.connect((err, client, release) => {
 });
 
 // Define a simple route
-
 app.get('/', (req, res) => {
-  client.query('SELECT NOW()', (err, result) => {
+  pool.connect((err, client, release) => {
     if (err) {
-      res.send('Error connecting to database');
-    } else {
-      res.send(`Hello World! Time from DB: ${result.rows[0].now}`);
+      return res.send('Error acquiring client');
     }
+    client.query('SELECT NOW()', (err, result) => {
+      release();
+      if (err) {
+        return res.send('Error executing query');
+      }
+      res.send(`Hello World! Time from DB: ${result.rows[0].now}`);
+    });
   });
 });
-
-
 
 // Start the server
 app.listen(port, () => {
   console.log(`App running on http://localhost:${port}`);
 });
-
