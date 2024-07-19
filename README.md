@@ -19,7 +19,7 @@ Step 1: Infrastructure Setup
     sudo apt-get update && sudo apt-get install terraform
 
 2. Define Terraform Configuration (main.tf):
-    File is located at terraform/main.tf
+    File is located at /terraform/main.tf
    
 4. Deploy with Terraform:
      terraform init
@@ -36,19 +36,21 @@ Step 2: Application Setup
      helm create hello-world
    
 3. Modify the default values.yaml to include your application specifics:
-     File is located at hello-world/values.yaml
+     File is located at /hello-world/values.yaml
 
 4. Modify default service.yaml to include your application specifics:
-     File is located at hello-world/templates/service.yaml
+     File is located at /hello-world/templates/service.yaml
    
-2.2 Create a Sample Node.js Application
+2.2 Create a Sample Node.js Application with a postgresql DB
 1. Create a simple Node.js app:
-     Files are located at app/app
+     Files are located at /app/app
+
+2. Create a PostgreSQL DB and add the details in the index.js file (file located at /app/app) 
    
-2. Create a Dockerfile:
-     File is located at app/Dockerfile
+3. Create a Dockerfile:
+     File is located at /app/Dockerfile
    
-3. Build and push the Docker image:
+4. Build and push the Docker image:
      docker build -t your-docker-repo/hello-world .
      docker push your-docker-repo/hello-world
 
@@ -110,7 +112,7 @@ Step 3: CI/CD Pipeline Setup
      d. SSH key for accessing the AKS cluster (if required)
    
 1.3 Create a Jenkins Multi-branch Pipeline Job.
-      Jenkinsfile is located at root location.
+      Jenkinsfile is located at root (/).
 
 1.4 Set up a GitHub webhook for automatic deployment
 1. Set Up Jenkins:
