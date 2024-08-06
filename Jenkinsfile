@@ -5,8 +5,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('priyanka-docker')
         /* AZURE_CREDENTIALS = credentials('azure-service-principal') */
         GITHUB_CREDENTIALS = credentials('priyanka-git')
-        RESOURCE_GROUP = 'ABCResourceGroupWest'
-        AKS_CLUSTER = 'ABCClusterWest1'
+        RESOURCE_GROUP = 'ABCResourceGroupWest3'
+        AKS_CLUSTER = 'ABCClusterWest3'
         DOCKER_REPO = 'priyankasingh06/hello-world'
         IMAGE_TAG = "v1"
 
