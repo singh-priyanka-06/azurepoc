@@ -3,15 +3,15 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "ABCResourceGroupWest2"
+  name     = "ABCResourceGroupWest3"
   location = "West US"
 }
 
 resource "azurerm_kubernetes_cluster" "example" {
-  name                = "ABCClusterWest2"
+  name                = "ABCClusterWest3"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  dns_prefix          = "ABCClusterWest2"
+  dns_prefix          = "ABCClusterWest3"
 
   default_node_pool {
     name       = "default"
